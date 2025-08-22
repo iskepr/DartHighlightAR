@@ -12,7 +12,9 @@ final alif = Mode(
       contains: [
         Mode(ref: '~string'),
         Mode(ref: '~number'),
-        Mode(ref: '~meta')
+        Mode(ref: '~meta'),
+        // Mode(ref: '~function'),
+        Mode(ref: '~boolean')
       ],
     ),
     '~string-doublebrace': Mode(begin: "\\{\\{", relevance: 0),
@@ -74,13 +76,13 @@ final alif = Mode(
       className: "number",
       relevance: 0,
       variants: [
-        Mode(begin: "\\b(0b[01]+)[lLjJ]?"), // binary
-        Mode(begin: "\\b(0o[0-7]+)[lLjJ]?"), // octal
+        Mode(begin: "\\b(0b[01]+)[lLjJ]?"),
+        Mode(begin: "\\b(0o[0-7]+)[lLjJ]?"),
         Mode(
             // decimal & hex
             begin:
                 "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)[lLjJ]?"),
-        Mode(begin: "(-?)([٠-٩]+(\\.[٠-٩]+)?)"), // hindi numbers
+        Mode(begin: "(-?)([٠-٩]+(\\.[٠-٩]+)?)"),
       ],
     ),
 
@@ -88,15 +90,39 @@ final alif = Mode(
     '~operator': Mode(
         className: "operator",
         relevance: 0,
-        begin: r"(\+|\-|\*|/|%|=|==|!=|>=|<=|<|>|\^|\^\\|\\\\|ليس|او|أو|و)"),
+        begin:
+            r"(\+|\-|\*|/|%|=|==|!=|>=|<=|<|>|\^|\\\^|\\\\|ليس| او| أو| و )"),
 
     // ---------- Meta ----------
     '~meta': Mode(className: "meta", begin: "^(>>>|\\.\\.\\.) "),
+
+    // ---------- Boolean ----------
+    '~boolean': Mode(
+        className: "boolean",
+        relevance: 0,
+        begin: r"(صح |خطا|خطأ|هذا|_تهيئة_)"),
+
+    // ---------- function ----------
+    // '~function': Mode(
+    //   className: "function",
+    //   relevance: 0,
+    //   begin: r"([\u0600-\u06FFa-zA-Z_][\u0600-\u06FFa-zA-Z0-9_]*)\s*\(",
+    //   end: r".",
+    //   excludeEnd: true,
+    //   contains: [
+    //     Mode(ref: '~meta'),
+    //     Mode(ref: '~number'),
+    //     Mode(ref: '~operator'),
+    //     Mode(ref: '~boolean'),
+    //     Mode(ref: '~function'),
+    //     Mode(ref: '~string'),
+    //   ],
+    // ),
   },
   aliases: ["الف", "alif", "aliflib"],
   keywords: {
     "keyword":
-    "اواذا اوإذا اذا إذا والا وإلا صنف دالة استورد عام لاجل لأجل لكل نهاية اطبع ارجع توقف حاول بينما استمر خلل احذف الزمن الرياضيات نوع",
+        "اواذا اوإذا اذا إذا والا وإلا صنف دالة استورد عام لاجل لأجل لكل نهاية اطبع ارجع توقف حاول بينما استمر خلل احذف الزمن الرياضيات نوع",
     "literal": "صح عدم خطا خطأ",
   },
   illegal: "(<\\/|->|\\?)|=>",
@@ -104,8 +130,10 @@ final alif = Mode(
     Mode(ref: '~meta'),
     Mode(ref: '~number'),
     Mode(ref: '~operator'),
-    Mode(beginKeywords: "اذا", relevance: 0),
+    Mode(ref: '~boolean'),
+    // Mode(ref: '~function'),
     Mode(ref: '~string'),
+    Mode(beginKeywords: "اذا", relevance: 0),
 
     // التعليقات
     HASH_COMMENT_MODE,
@@ -127,13 +155,14 @@ final alif = Mode(
           begin: "\\(",
           end: "\\)",
           contains: [
-            // identifiers بالعربي والإنجليزي
             Mode(
                 className: "variable",
                 begin: r"[\u0600-\u06FF_a-zA-Z][\u0600-\u06FF_a-zA-Z0-9_]*"),
             Mode(ref: '~meta'),
             Mode(ref: '~number'),
             Mode(ref: '~string'),
+            Mode(ref: '~operator'),
+            Mode(ref: '~boolean'),
             HASH_COMMENT_MODE,
           ],
         ),
@@ -143,8 +172,5 @@ final alif = Mode(
 
     // Decorators
     Mode(className: "meta", begin: "^[\\t ]*@", end: r"$"),
-
-    // builtins زى اطبع, exec
-    Mode(begin: "\\b(اطبع|exec)\\("),
   ],
 );
