@@ -102,7 +102,7 @@ class Highlight {
       mode.keywords = compiledKeywords;
     }
 
-    mode.lexemesRe = _langRe(mode.lexemes ?? r'\w+', true);
+    mode.lexemesRe = _langRe(mode.lexemes ?? r'[\u0600-\u06FF\w]+', true);
 
     if (parent != null) {
       if (mode.beginKeywords != null) {

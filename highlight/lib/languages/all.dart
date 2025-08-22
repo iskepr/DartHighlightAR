@@ -3,6 +3,7 @@ import 'abnf.dart';
 import 'accesslog.dart';
 import 'actionscript.dart';
 import 'ada.dart';
+import 'alif.dart';
 import 'angelscript.dart';
 import 'apache.dart';
 import 'applescript.dart';
@@ -200,6 +201,7 @@ final builtinLanguages = {
   'accesslog': accesslog,
   'actionscript': actionscript,
   'ada': ada,
+  'alif': alif,
   'angelscript': angelscript,
   'apache': apache,
   'applescript': applescript,

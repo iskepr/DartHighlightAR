@@ -66,8 +66,12 @@ final REGEXP_MODE = Mode(
           relevance: 0,
           contains: [Mode(begin: "\\\\[\\s\\S]", relevance: 0)])
     ]);
-final TITLE_MODE =
-    Mode(className: "title", begin: "[a-zA-Z]\\w*", relevance: 0);
-final UNDERSCORE_TITLE_MODE =
-    Mode(className: "title", begin: "[a-zA-Z_]\\w*", relevance: 0);
-final METHOD_GUARD = Mode(begin: "\\.\\s*[a-zA-Z_]\\w*", relevance: 0);
+final TITLE_MODE = Mode(
+    className: "title", begin: "[\\u0600-\\u06FFa-zA-Z]\\w*", relevance: 0);
+final UNDERSCORE_TITLE_MODE = Mode(
+    className: "title",
+    begin: "[\\u0600-\\u06FFa-zA-Z_][\\u0600-\\u06FFa-zA-Z0-9_]*",
+    relevance: 0);
+final METHOD_GUARD = Mode(
+    begin: "\\.\\s*[\\u0600-\\u06FFa-zA-Z_][\\u0600-\\u06FFa-zA-Z0-9_]*",
+    relevance: 0);
